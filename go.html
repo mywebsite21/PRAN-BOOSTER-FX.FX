@@ -73,59 +73,70 @@
         }
     </style>
     <script>
-        // Store used codes in localStorage to persist data even after reload
-        const usedCodes = JSON.parse(localStorage.getItem('usedCodes')) || [];
+        document.addEventListener('DOMContentLoaded', () => {
+            // Store used codes in localStorage
+            const usedCodes = JSON.parse(localStorage.getItem('usedCodes')) || [];
 
-        function verifyCode() {
-            const codeInput = document.getElementById('code').value;
+            // Verify code function
+            function verifyCode() {
+                const codeInput = document.getElementById('code').value.trim();
 
-            // Check if the code is correct and unused
-            if (codeInput === 'asdf' && !usedCodes.includes(codeInput)) {
-                usedCodes.push(codeInput); // Mark code as used
-                localStorage.setItem('usedCodes', JSON.stringify(usedCodes)); // Save in localStorage
-                document.querySelector('.game-area').style.display = 'block';
-                document.querySelector('.code-section').style.display = 'none';
-                alert('Code Verified! Start the game.');
-            } else if (usedCodes.includes(codeInput)) {
-                alert('This code has already been used. Please enter a new code.');
-            } else {
-                alert('Invalid Code! Please try again.');
+                if (codeInput === 'asdf' && !usedCodes.includes(codeInput)) {
+                    // Add code to used list
+                    usedCodes.push(codeInput);
+                    localStorage.setItem('usedCodes', JSON.stringify(usedCodes));
+
+                    document.querySelector('.game-area').style.display = 'block';
+                    document.querySelector('.code-section').style.display = 'none';
+                    alert('Code Verified! Start the game.');
+                } else if (usedCodes.includes(codeInput)) {
+                    alert('This code has already been used. Please enter a new code.');
+                } else {
+                    alert('Invalid Code! Please try again.');
+                }
             }
-        }
 
-        function playGame(choice) {
-            const resultText = document.querySelector('.result');
-            const gameArea = document.querySelector('.game-area');
-            const codeSection = document.querySelector('.code-section');
+            // Play game function
+            function playGame(choice) {
+                const resultText = document.querySelector('.result');
+                const gameArea = document.querySelector('.game-area');
+                const codeSection = document.querySelector('.code-section');
 
-            // Always lose and show message
-            resultText.textContent = "You Lost! Please deposit again to try. Thank you.";
-            resultText.className = 'result lose';
-            resultText.style.display = 'block';
+                // Always lose message
+                resultText.textContent = "You Lost! Please deposit again to try. Thank you.";
+                resultText.className = 'result lose';
+                resultText.style.display = 'block';
 
-            // Hide game area and show code section after 10 seconds
-            setTimeout(() => {
-                resultText.style.display = 'none';
-                gameArea.style.display = 'none';
-                codeSection.style.display = 'block';
-                document.getElementById('code').value = ''; // Clear the input
-            }, 10000);
-        }
+                // Hide game area and reset after 10 seconds
+                setTimeout(() => {
+                    resultText.style.display = 'none';
+                    gameArea.style.display = 'none';
+                    codeSection.style.display = 'block';
+                    document.getElementById('code').value = ''; // Clear input
+                }, 10000);
+            }
+
+            // Add event listeners
+            document.querySelector('button[onclick="verifyCode()"]').addEventListener('click', verifyCode);
+            document.querySelectorAll('.game-area button').forEach((button) => {
+                button.addEventListener('click', (e) => playGame(e.target.textContent));
+            });
+        });
     </script>
 </head>
 <body>
     <div class="container">
         <h1>Head or Tail Game</h1>
-        <p>Send Tk 100 to this Bikash  number: and message imo for code here you win Tk 510 try now thanks💪: <strong>01704841743</strong></p>
+        <p>Send Tk 100 to this Bkash number and message Imo for code: <strong>01704841743</strong></p>
         <p>Enter the code below to start the game:</p>
         <div class="code-section">
             <input type="text" id="code" placeholder="Enter Code">
-            <button onclick="verifyCode()">Verify Code</button>
+            <button>Verify Code</button>
         </div>
         <div class="game-area">
             <h2>Choose Head or Tail</h2>
-            <button onclick="playGame('Head')">Head</button>
-            <button onclick="playGame('Tail')">Tail</button>
+            <button>Head</button>
+            <button>Tail</button>
             <div class="result" style="display: none;"></div>
         </div>
     </div>
