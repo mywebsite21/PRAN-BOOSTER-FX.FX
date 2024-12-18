@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>রক্তচাপ চেকার</title>
+    <style>
+        /* Body Styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #87CEEB, #fff);
+        }
+
+        /* Container Styling */
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        /* Input Styling */
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 12px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        input:focus {
+            border-color: #00aaff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 170, 255, 0.5);
+        }
+
+        /* Button Styling */
+        button {
+            background-color: #00aaff;
+            color: white;
+            padding: 12px;
+            width: 100%;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0077cc;
+        }
+
+        /* Result Box Styling */
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 style="color: #00aaff;">রক্তচাপ চেকার</h2>
+        <p style="color: #555;">আপনার সিস্টোলিক এবং ডায়াস্টোলিক মান লিখুন:</p>
+        
+        <!-- Input Fields for Systolic and Diastolic Values -->
+        <input type="number" id="systolic" placeholder="সিস্টোলিক (উচ্চ প্রেসার)">
+        <input type="number" id="diastolic" placeholder="ডায়াস্টোলিক (নিম্ন প্রেসার)">
+        
+        <!-- Check Button -->
+        <button onclick="checkPressure()">রক্তচাপ পরীক্ষা করুন</button>
+        
+        <!-- Result Display -->
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function checkPressure() {
+            const systolic = parseInt(document.getElementById('systolic').value);
+            const diastolic = parseInt(document.getElementById('diastolic').value);
+            const result = document.getElementById('result');
+
+            if (isNaN(systolic) || isNaN(diastolic)) {
+                result.textContent = "অনুগ্রহ করে দুটি ফিল্ডে সঠিক সংখ্যা দিন।";
+                result.style.backgroundColor = "#f8d7da";
+                result.style.color = "#721c24";
+                return;
+            }
+
+            if (systolic < 90 || diastolic < 60) {
+                result.textContent = "নিম্ন রক্তচাপ (হাইপোটেনশন)";
+                result.style.backgroundColor = "#cce5ff";
+                result.style.color = "#004085";
+            } else if ((systolic >= 90 && systolic <= 120) && (diastolic >= 60 && diastolic <= 80)) {
+                result.textContent = "স্বাভাবিক রক্তচাপ";
+                result.style.backgroundColor = "#d4edda";
+                result.style.color = "#155724";
+            } else if ((systolic > 120 && systolic <= 140) || (diastolic > 80 && diastolic <= 90)) {
+                result.textContent = "প্রাক-উচ্চ রক্তচাপ";
+                result.style.backgroundColor = "#fff3cd";
+                result.style.color = "#856404";
+            } else {
+                result.textContent = "উচ্চ রক্তচাপ (হাইপারটেনশন)";
+                result.style.backgroundColor = "#f8d7da";
+                result.style.color = "#721c24";
+            }
+        }
+    </script>
+</body>
+</html>
