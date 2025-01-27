@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Website</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://i.imgur.com/7aKMgVS.jpeg');
+            background-size: cover;
+            background-position: center center;
+            color: yellow;
+            line-height: 1.6;
+            padding: 0 10px;
+        }
+
+        header {
+            background-color: rgba(255, 255, 255, 0); /* Transparent background for header */
+            padding: 10px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .logo {
+            width: 200px; /* Make logo bigger */
+            height: auto;
+            background: none;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        nav .nav-link {
+            text-decoration: none;
+            color: yellow;
+            padding: 12px 20px;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            background: none;
+            border: 2px solid yellow;
+            border-radius: 5px;
+            margin: 0 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        nav .nav-link i {
+            margin-right: 8px;
+        }
+
+        nav .nav-link:hover {
+            background-color: #0066cc;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .section {
+            padding: 20px;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .visible {
+            opacity: 1;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        footer {
+            background-color: #333;
+            color: yellow;
+            padding: 10px;
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            margin: 5px;
+        }
+
+        /* Live Chat Button Styles */
+        .live-chat-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #25D366; /* WhatsApp color */
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 9999;
+        }
+
+        .live-chat-button i {
+            margin-right: 10px;
+        }
+
+        .live-chat-button:hover {
+            background-color: #128C7E; /* WhatsApp hover color */
+            transform: scale(1.05);
+        }
+
+        /* Sticky Header Styles (For scroll hide/reveal effect) */
+        .sticky {
+            transform: translateY(-100px); /* Hide when scrolling down */
+        }
+
+        /* Animated Text */
+        .animated-text {
+            font-size: 2rem;
+            animation: fadeIn 3s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <div class="logo-container">
+            <img src="https://i.imgur.com/ai05LCR.png" alt="Logo" id="logo" class="logo">
+        </div>
+        <nav>
+            <ul class="nav-list">
+                <li><a href="#" class="nav-link" onclick="showSection('home')"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="#" class="nav-link" onclick="showSection('work')"><i class="fas fa-briefcase"></i> Work</a></li>
+                <li><a href="#" class="nav-link" onclick="showSection('fx')"><i class="fas fa-chart-line"></i> FX</a></li>
+                <li><a href="#" class="nav-link" onclick="showSection('update')"><i class="fas fa-sync-alt"></i> Update</a></li>
+            </ul>
+        </nav>
+        <div class="live-chat">
+            <a href="https://wa.me/8801775792780" target="_blank" class="live-chat-button">
+                <i class="fab fa-whatsapp"></i> Live Chat
+            </a>
+        </div>
+    </header>
+
+    <section id="home" class="section visible">
+        <h1 class="animated-text">Limited Time Offer!</h1>
+        <div class="offer large-offer">
+            <img src="https://via.placeholder.com/800x400" alt="Big Offer" class="offer-image">
+            <h2>50% Off Your First Purchase!</h2>
+            <p>Get an exclusive 50% off your first purchase. Don't miss out on this limited time offer!</p>
+        </div>
+    </section>
+
+    <section id="work" class="section hidden">
+        <h2>Your Work Updates</h2>
+        <p>This is where your work-related updates will be displayed.</p>
+    </section>
+
+    <section id="fx" class="section hidden">
+        <h2>FX Content</h2>
+        <p>This section allows you to upload images or any other content using HTML code.</p>
+    </section>
+
+    <section id="update" class="section hidden">
+        <h2>Update Content</h2>
+        <p>You can update your trading-related news here. Add text, images, and users can even like your posts.</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Dynamic Website. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Function to switch between sections
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.add('hidden');
+                section.classList.remove('visible');
+            });
+
+            // Show the clicked section
+            const activeSection = document.getElementById(sectionId);
+            activeSection.classList.remove('hidden');
+            activeSection.classList.add('visible');
+        }
+
+        // JavaScript to hide/show the header on scroll
+        let prevScrollPos = window.pageYOffset;
+
+        window.onscroll = function() {
+            let currentScrollPos = window.pageYOffset;
+            const header = document.getElementById("header");
+
+            if (prevScrollPos > currentScrollPos) {
+                header.classList.remove("sticky"); // Show header when scrolling up
+            } else {
+                header.classList.add("sticky"); // Hide header when scrolling down
+            }
+            prevScrollPos = currentScrollPos;
+        };
+    </script>
+</body>
+</html>
