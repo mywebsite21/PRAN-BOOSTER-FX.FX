@@ -1,0 +1,42 @@
+document.addEventListener('DOMContentLoaded', () => {
+  const navLinks = document.querySelectorAll('.nav-link');
+  const sections = document.querySelectorAll('.section');
+  const colorTheme = document.getElementById('colorTheme');
+  const body = document.getElementById('body');
+
+  // Navigation between sections
+  navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = link.getAttribute('href').substring(1);
+
+      sections.forEach(section => section.classList.add('hidden'));
+      document.getElementById(target).classList.remove('hidden');
+    });
+  });
+
+  // Theme changing functionality
+  colorTheme.addEventListener('change', () => {
+    const theme = colorTheme.value;
+    switch (theme) {
+      case 'black':
+        body.style.backgroundColor = 'black';
+        body.style.color = 'white';
+        break;
+      case 'white':
+        body.style.backgroundColor = 'white';
+        body.style.color = 'black';
+        break;
+      case 'blue':
+        body.style.backgroundColor = '#001f3f';
+        body.style.color = 'white';
+        break;
+      case 'green':
+        body.style.backgroundColor = '#004d00';
+        body.style.color = 'white';
+        break;
+      default:
+        break;
+    }
+  });
+});
